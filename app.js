@@ -48,5 +48,5 @@ function getValue(tagNum,tagValue){
         return base64Code;
     }
     function getRedirectUrl(code){
-        return 'https://qrcode.alaobeidat.com/?code='+code;
+        return 'https://qrcode.alaobeidat.com?code='+code;
     }
