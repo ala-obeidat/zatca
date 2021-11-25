@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        div{
+            margin-top: 20px;
+        }
+         input {
+    padding: 10px;
+    left: 80px;
+    position: relative;
+}
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/form" method="post">
+    <div>
+        <label>Seller Name</label>
+        <input name="sellerName" style="padding: 10px;" />
+    </div>
+    <div>
+        <label>VAT Number</label>
+        <input name="vatNumber" style="padding: 10px;" />
+    </div>
+    <div>
+        <label>Time stamp</label>
+        <input name="date" type="datetime-local"  />
+    </div>
+    <div>
+        <label>Total (Including VAT)</label>
+        <input name="total" style="padding: 10px;" />
+    </div>
+    <div>
+        <label>VAT value</label>
+        <input name="vat" style="padding: 10px;" />
+    </div>
+    <div>
+        <input type="submit" value="Submit" />
+    </div>
+    
+</form>
+</body>
+</html>
