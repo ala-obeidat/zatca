@@ -6,20 +6,24 @@ app.use(express.urlencoded({
   }))
 var http = require('http');
 app.get("/", function(req, res){
-	res.render('index.ejs');
-    //res.sendFile(__dirname,'',"index.html");
+	res.render('index.ejs'); 
 });
-app.post('/test', (req, res) => {
-    res.write('ZATCA QR-Code Web portal')  // <==== req.body will be a parsed JSON object
+app.get('/ping', (req, res) => {
+    res.write('ZATCA QR-Code web portal');
   })
   app.post("/form", function(req, res){
-    var qrcode=getQrcode(req.body.sellerName,req.body.vatNumber,req.body.date+':00Z',req.body.total,req.body.vat);
+    var data=req.body;
+    data.date=data.date+':00Z';
+    var qrcode=getQrcode(data.sellerName,data.vatNumber,data.date,data.total,data.vat);
+    console.log('Request',data);
+
     res.redirect(getRedirectUrl(qrcode));
 });
+
 app.post("/api", function(req, res){
     console.log({requestBody: req.body});
     var qrcode=getQrcode(req.body.sellerName,req.body.vatNumber,req.body.date,req.body.total,req.body.vat);
-    res.json({'QR-Text':qrcode});
+    res.json({'QR-Text':qrcode,'Data':req.body});
 });
 
 var server = http.createServer(app);
@@ -31,7 +35,10 @@ server.listen(process.env.PORT || port,() => console.log(`server is running at $
 
 function getValue(tagNum,tagValue){
     var tagBuf=Buffer.from([tagNum],'utf8');
-    var tagValueLenBuf=Buffer.from([tagValue.length],'utf8');
+    let length=tagValue.length;
+    if (/[\u0600-\u06FF]/.test(tagValue))
+    length=length*2;
+    var tagValueLenBuf=Buffer.from([length],'utf8');
     var tagValueBuf=Buffer.from(tagValue,'utf8');
     var bufsArray = [tagBuf,tagValueLenBuf, tagValueBuf];
     return Buffer.concat(bufsArray);
@@ -44,6 +51,7 @@ function getValue(tagNum,tagValue){
         let data5=getValue('5',vat);
         var tags=[data1,data2,data3,data4,data5];
         var qr=Buffer.concat(tags);
+        console.log('Hexa',qr);
         var base64Code=qr.toString('base64');
         return base64Code;
     }
