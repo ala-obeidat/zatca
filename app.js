@@ -1,3 +1,4 @@
+const e = require('express');
 var express = require('express');
 var app = express();
 app.use(express.json());
@@ -37,7 +38,15 @@ function getValue(tagNum,tagValue){
     var tagBuf=Buffer.from([tagNum],'utf8');
     let length=tagValue.length;
     if (/[\u0600-\u06FF]/.test(tagValue))
-    length=length*2;
+    {
+        length=0;
+        for (var i = 0; i < tagValue.length; i++) {
+            if (/[\u0600-\u06FF]/.test(tagValue.charAt(i)))
+                length=length+2;
+            else
+                length=length+1;
+          }
+    }
     var tagValueLenBuf=Buffer.from([length],'utf8');
     var tagValueBuf=Buffer.from(tagValue,'utf8');
     var bufsArray = [tagBuf,tagValueLenBuf, tagValueBuf];
