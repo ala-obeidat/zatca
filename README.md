@@ -1,4 +1,4 @@
-# zatca QR code generatore
+# ZATCA QR code generatore (Nodejs)
 
 An unofficial package to help developers implement ZATCA (Fatoora) QR code easily which is required for e-invoicing in Saudi Arabia.
 
