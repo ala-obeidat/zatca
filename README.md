@@ -8,7 +8,7 @@ An unofficial package to help developers implement ZATCA (Fatoora) QR code easil
 
 ## demo:
 * [Web portal](https://zatca.alaobeidat.com) 
-* API: `HTTP POST` [https://zatca-sa.herokuapp.com/api](https://zatca-sa.herokuapp.com/api)
+* API: `POST` [https://zatca-sa.herokuapp.com/api](https://zatca-sa.herokuapp.com/api)
 ```json
    {
      "sellerName":"علاء alaa",
